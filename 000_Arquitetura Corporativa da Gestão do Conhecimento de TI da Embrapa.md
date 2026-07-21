@@ -1,8 +1,9 @@
-## BookStack · KCS · RAG · Qdrant · Inteligência Artificial Generativa
+## BookStack · KCS · n8n · RAG · Banco Vetorial (Qdrant) · Inteligência Artificial Generativa
 
 | Campo | Valor |
 |-------|-------|
-| **Versão** | 4.0 |
+
+| **Versão** | 5.0 |
 | **Data** | Julho de 2026 |
 | **Classificação** | Interno |
 | **Organização** | Embrapa — Empresa Brasileira de Pesquisa Agropecuária |
@@ -15,6 +16,7 @@
 | 2.0 | Julho 2026 | Primeira consolidação e remoção de duplicidades |
 | 3.0 | Julho 2026 | Reestruturação completa, eliminação de redundâncias, padronização editorial e inclusão de novos elementos |
 | 4.0 | Julho 2026 | Revisão geral e adaptação da base de conhecimento para a nova estrutura de 6 Estantes (Corporativo vs. Unidades) |
+| 5.0 | Julho 2026 | Inclusão do n8n como camada de orquestração, padronização "banco vetorial (Qdrant)", ajuste da Regra 80/20 e reforço do escopo exclusivo de TI |
 
 ---
 
@@ -47,8 +49,8 @@ Este documento estabelece a **Arquitetura Corporativa da Base de Conhecimento** 
 1. **Organização estruturada** no BookStack, com hierarquia de Estantes, Livros, Capítulos e Páginas orientada a domínios de conhecimento.
 2. **Metodologia KCS** (Knowledge-Centered Service) adaptada à realidade da Embrapa, promovendo a captura contínua de conhecimento durante a operação diária.
 3. **Taxonomia e metadados padronizados**, separando a estrutura organizacional dos marcadores de qualificação para reduzir redundâncias e facilitar a governança.
-4. **Arquitetura de Recuperação Aumentada por Geração (RAG)**, integrando pipelines de indexação, bancos vetoriais (Qdrant) e modelos de linguagem para busca semântica e assistentes inteligentes.
-5. **Governança editorial e descentralização**, estruturada em **6 Estantes independentes** que dividem o escopo Corporativo (Embrapa) e Local (Unidades) para cada público-alvo (Suporte ao Usuário, Operação de TI e Administração de TI), operacionalizando a Regra 90/10 de proporção de conhecimento.
+4. **Arquitetura de Recuperação Aumentada por Geração (RAG)**, integrando pipelines de indexação orquestrados pelo n8n (plataforma de automação de workflows), bancos vetoriais (Qdrant) e modelos de linguagem para busca semântica e assistentes inteligentes.
+5. **Governança editorial e descentralização**, estruturada em **6 Estantes independentes** que dividem o escopo Corporativo (Embrapa) e Local (Unidades) para cada público-alvo (Suporte ao Usuário, Operação de TI e Administração de TI), operacionalizando a Regra 80/20 de proporção de conhecimento.
 
 A implementação está organizada em **oito fases progressivas**, desde a infraestrutura básica até agentes inteligentes e melhoria contínua, com indicadores de maturidade para acompanhamento.
 
@@ -73,7 +75,7 @@ Apesar desse grande volume de conhecimento, muitas organizações ainda enfrenta
 
 No contexto da Embrapa, esse desafio torna-se ainda mais relevante devido à existência de uma estrutura organizacional distribuída, composta por uma unidade central e quarenta e quatro Unidades Descentralizadas, cada uma com características operacionais próprias.
 
-A Base de Conhecimento Corporativa proposta neste documento foi concebida para enfrentar esse cenário por meio de uma arquitetura orientada ao conhecimento, construída sobre o BookStack e fundamentada nos princípios do Knowledge-Centered Service (KCS), complementados por tecnologias de Recuperação Aumentada por Geração (RAG), bancos de dados vetoriais (Qdrant) e Inteligência Artificial Generativa.
+A Base de Conhecimento Corporativa proposta neste documento foi concebida para enfrentar esse cenário por meio de uma arquitetura orientada ao conhecimento, construída sobre o BookStack e fundamentada nos princípios do Knowledge-Centered Service (KCS), complementados por tecnologias de Recuperação Aumentada por Geração (RAG), bancos vetoriais (Qdrant) e Inteligência Artificial Generativa.
 
 O objetivo não é apenas armazenar documentos, mas transformar conhecimento organizacional em um ativo reutilizável, pesquisável e continuamente aprimorado.
 
@@ -116,6 +118,9 @@ Pessoas
   Base de Conhecimento (BookStack)
             │
             ▼
+  Orquestração (n8n) — Acesso à API do BookStack
+            │
+            ▼
   Pipeline de Conhecimento (Parser + Chunking + IA)
             │
             ▼
@@ -147,9 +152,9 @@ Essa arquitetura busca atender simultaneamente aos quatro consumidores.
 
 Toda a Base de Conhecimento será construída obedecendo aos doze princípios descritos a seguir, que estabelecem as diretrizes permanentes para a evolução da arquitetura corporativa da gestão do conhecimento da Embrapa.
 
-### Princípio 1 — O Conhecimento é um Ativo Corporativo
+### Princípio 1 — O Conhecimento de TI é um Ativo Corporativo
 
-O conhecimento registrado não pertence ao autor, à equipe ou à unidade responsável por sua criação. Todo conteúdo produzido passa a integrar o patrimônio intelectual da organização, devendo ser registrado, preservado, compartilhado, reutilizado e continuamente aprimorado. Nenhum conhecimento crítico deverá permanecer exclusivamente na memória de indivíduos ou equipes.
+O conhecimento de TI registrado não pertence ao autor, à equipe ou à unidade responsável por sua criação. Todo conteúdo produzido passa a integrar o patrimônio intelectual da organização, devendo ser registrado, preservado, compartilhado, reutilizado e continuamente aprimorado. Nenhum conhecimento crítico deverá permanecer exclusivamente na memória de indivíduos ou equipes.
 
 ### Princípio 2 — Organização Orientada ao Domínio
 
@@ -191,15 +196,15 @@ Todo artigo publicado na base deve representar conhecimento técnico validado, f
 
 A Inteligência Artificial e os chatbots não substituem a Base de Conhecimento, mas ampliam sua utilidade e acessibilidade. Toda resposta gerada por assistentes virtuais ou agentes inteligentes baseados em RAG deve estar estritamente fundamentada em artigos validados e oficialmente publicados na base corporativa.
 
-### Princípio 12 — Contextualização e Regra 90/10
+### Princípio 12 — Contextualização e Regra 80/20
 
-A arquitetura do conhecimento deve contemplar a realidade descentralizada da Embrapa, priorizando o conhecimento corporativo comum (90%) e tratando particularidades regionais ou de unidades locais (10%) de forma estruturada. Isso é alcançado dividindo a Base de Conhecimento em estantes lógicas segregadas por público (Suporte ao Usuário, Operação de TI, Administração de TI) e por escopo (Embrapa vs. Unidades), totalizando **6 Estantes Corporativas** que evitam a duplicação ou fragmentação das informações comuns.
+A arquitetura do conhecimento de TI deve contemplar a realidade descentralizada da Embrapa, priorizando o conhecimento corporativo comum (80%) e tratando particularidades regionais ou de unidades locais (20%) de forma estruturada. Isso é alcançado dividindo a Base de Conhecimento em estantes lógicas segregadas por público (Suporte ao Usuário, Operação de TI, Administração de TI) e por escopo (Embrapa vs. Unidades), totalizando **6 Estantes Corporativas** que evitam a duplicação ou fragmentação das informações comuns.
 
 ## 2.2 Manifesto da Gestão do Conhecimento
 
 A implantação de uma Arquitetura Corporativa de Gestão do Conhecimento representa uma transformação organizacional. Mais do que implantar uma plataforma tecnológica, trata-se de estabelecer uma cultura em que o conhecimento seja produzido, compartilhado, reutilizado e continuamente aperfeiçoado.
 
-A metodologia KCS fornece os processos para capturar e evoluir esse conhecimento. O BookStack oferece a estrutura para organizá-lo. A taxonomia e os metadados garantem sua consistência. O RAG e os bancos vetoriais ampliam sua recuperação. Os modelos de linguagem e agentes inteligentes potencializam sua aplicação.
+A metodologia KCS fornece os processos para capturar e evoluir esse conhecimento. O BookStack oferece a estrutura para organizá-lo. A taxonomia e os metadados garantem sua consistência. O RAG e os bancos vetoriais (Qdrant) ampliam sua recuperação. Os modelos de linguagem e agentes inteligentes potencializam sua aplicação.
 
 Entretanto, nenhuma dessas tecnologias substitui a necessidade de governança, colaboração e compromisso institucional.
 
@@ -581,7 +586,7 @@ A inclusão de novos metadados deverá observar os critérios de necessidade rec
 
 A metodologia **Knowledge-Centered Service (KCS)** tem como princípio fundamental transformar a resolução diária de demandas em uma oportunidade contínua de criação, evolução e reutilização do conhecimento. Nesta arquitetura, o KCS não é tratado como um processo independente, mas como um componente integrado à Base de Conhecimento.
 
-O objetivo não é obrigar os colaboradores a produzir documentação extensa, mas garantir que o conhecimento gerado durante a operação seja registrado de forma simples, reutilizável e continuamente aperfeiçoado. A Base de Conhecimento deixa de ser um repositório estático e passa a ser um sistema vivo, alimentado pelas atividades diárias das equipes.
+O objetivo não é obrigar os colaboradores a produzir documentação extensa, mas garantir que o conhecimento de TI gerado durante a operação seja registrado de forma simples, reutilizável e continuamente aperfeiçoado. A Base de Conhecimento deixa de ser um repositório estático e passa a ser um sistema vivo, alimentado pelas atividades diárias das equipes.
 
 ## 5.2 Os Cinco Princípios do KCS
 
@@ -667,14 +672,14 @@ A IA auxilia o processo editorial, mas a aprovação permanece sob responsabilid
 
 ## 6.1 Princípio da Não Duplicação e Fonte Única da Verdade
 
-A arquitetura adota o princípio de **Fonte Única da Verdade (Single Source of Truth)**. O BookStack será o repositório oficial do conhecimento corporativo. Todos os demais sistemas (Portal, Chatbot, Qdrant) deverão consumir informações a partir dele.
+A arquitetura adota o princípio de **Fonte Única da Verdade (Single Source of Truth)**. O BookStack será o repositório oficial do conhecimento corporativo. Todos os demais sistemas (Portal, Chatbot, banco vetorial/Qdrant) deverão consumir informações a partir dele.
 
 Um mesmo conhecimento deverá existir apenas uma vez. Quando determinado conteúdo for necessário em diferentes contextos, deverá ser reutilizado por meio de referências ou links, evitando a criação de cópias.
 ```text
 BookStack (Fonte Oficial)
          ┌──────┼──────┐
          ▼      ▼      ▼
-      Portal  Chatbot  Qdrant
+      Portal  Chatbot  Banco Vetorial (Qdrant)
          └──────┼──────┘
                 ▼
            Usuários
@@ -746,12 +751,12 @@ A Embrapa possui uma estrutura organizacional composta por uma Sede e diversas U
 
 **Princípio 5 — A IA deve compreender o contexto da Unidade.** Os sistemas de IA deverão distinguir quando uma pergunta exige uma resposta corporativa ou específica, utilizando metadados e contexto do usuário — não duplicação de documentos.
 
-### A Regra 90/10
+### A Regra 80/20
 
 | Tipo de conhecimento | Percentual esperado |
 |----------------------|:-------------------:|
-| Conhecimento corporativo | 90% |
-| Conhecimento específico das Unidades | 10% |
+| Conhecimento corporativo de TI (Embrapa) | 80% |
+| Conhecimento específico de TI das Unidades Descentralizadas | 20% |
 
 Caso uma Unidade possua uma proporção muito maior de conteúdo local, recomenda-se avaliar se parte desse conhecimento não poderia ser promovida à Base Corporativa.
 
@@ -827,11 +832,11 @@ A Embrapa adota a **Arquitetura de Camadas de Conhecimento** como o modelo ofici
 
 ```text
 ┌─────────────────────────────────────────┐
-│ Camada 1: Conhecimento Corporativo       │ (Geral - 90% do acervo)
+│ Camada 1: Conhecimento Corporativo de TI  │ (Geral - 80% do acervo)
 │  ┌───────────────────────────────────┐  │
 │  │ Camada 2: Conhecimento Regional   │  │ (Compartilhado por grupo de UDs)
 │  │  ┌─────────────────────────────┐  │  │
-│  │  │ Camada 3: Conhecimento Local│  │  │ (Exclusivo da Unidade - 10%)
+│  │  │ Camada 3: Conhecimento Local│  │  │ (Exclusivo da Unidade - 20%)
 │  │  └─────────────────────────────┘  │  │
 │  └───────────────────────────────────┘  │
 └─────────────────────────────────────────┘
@@ -1058,13 +1063,16 @@ Nesse cenário, o autor não precisa conhecer todos os templates. Basta informar
 
 ## 9.1 Visão Geral do Pipeline de Indexação
 
-A Base de Conhecimento não será utilizada exclusivamente por pessoas — ela também será consumida por mecanismos de Inteligência Artificial, motores de busca semântica, sistemas RAG e agentes inteligentes. Por esse motivo, o conteúdo deverá percorrer um processo de transformação antes de ser armazenado no banco vetorial.
+A Base de Conhecimento não será utilizada exclusivamente por pessoas — ela também será consumida por mecanismos de Inteligência Artificial, motores de busca semântica, sistemas RAG e agentes inteligentes. Por esse motivo, o conteúdo deverá percorrer um processo de transformação antes de ser armazenado no banco vetorial (Qdrant).
 
 Esse processo, denominado **Pipeline de Indexação**, transforma artigos escritos para seres humanos em documentos estruturados e semanticamente enriquecidos para consumo por modelos de linguagem:
 ```text
-BookStack → API do BookStack → Extração do Conteúdo → Enriquecimento dos Metadados →
-Chunking Inteligente → Geração dos Embeddings → Qdrant → Sistema RAG / IA
+BookStack → n8n (Orquestração) → API do BookStack → Extração do Conteúdo →
+Enriquecimento dos Metadados → Chunking Inteligente → Geração dos Embeddings →
+Banco Vetorial (Qdrant) → Sistema RAG / IA
 ```
+O **n8n** atua como camada de orquestração, sendo responsável pelo acesso à API do BookStack, pela automação dos fluxos de extração e pelo encaminhamento dos dados processados ao banco vetorial (Qdrant).
+
 Cada etapa possui responsabilidades próprias e independentes. Essa separação facilita a evolução do sistema sem necessidade de alterar a Base de Conhecimento.
 
 ### Arquitetura em Quatro Domínios
@@ -1074,8 +1082,8 @@ PRODUÇÃO                    ORGANIZAÇÃO DO CONHECIMENTO
         │                           │
         ▼                           ▼
 RECUPERAÇÃO DO CONHECIMENTO APLICAÇÃO DO CONHECIMENTO
-(Pipeline, Chunking,        (TOPdesk, Portal, Chatbot,
- Embeddings, Qdrant,         Agentes IA, APIs, Dashboards)
+(n8n, Pipeline, Chunking,   (TOPdesk, Portal, Chatbot,
+ Embeddings, Banco Vetorial,  Agentes IA, APIs, Dashboards)
  Busca Híbrida, Re-ranking)
 ```
 ### Arquitetura Lógica em Oito Camadas
@@ -1085,7 +1093,7 @@ RECUPERAÇÃO DO CONHECIMENTO APLICAÇÃO DO CONHECIMENTO
 | 1. Produção | Autores criam e revisam artigos |
 | 2. BookStack | Armazenamento, organização e versionamento |
 | 3. Pipeline | Extração, normalização, chunking e enriquecimento |
-| 4. Banco Vetorial | Armazenamento de vetores e metadados |
+| 4. Banco Vetorial (Qdrant) | Armazenamento de vetores e metadados |
 | 5. Recuperação | Busca híbrida, filtros e re-ranking |
 | 6. LLM | Compreensão, interpretação e síntese de respostas |
 | 7. Aplicações | Chatbots, APIs e agentes inteligentes |
@@ -1095,7 +1103,7 @@ RECUPERAÇÃO DO CONHECIMENTO APLICAÇÃO DO CONHECIMENTO
 
 ### Etapa 1 — Extração
 
-A primeira etapa obtém as páginas do BookStack via API, recuperando: título, conteúdo em Markdown/HTML, marcadores, autor, datas, permissões e localização na estrutura (Estante, Livro, Capítulo). Todo o processo ocorre automaticamente — os autores não precisam realizar qualquer ação adicional.
+A primeira etapa, orquestrada pelo n8n, obtém as páginas do BookStack via API, recuperando: título, conteúdo em Markdown/HTML, marcadores, autor, datas, permissões e localização na estrutura (Estante, Livro, Capítulo). Todo o processo ocorre automaticamente — os autores não precisam realizar qualquer ação adicional.
 
 ### Etapa 2 — Enriquecimento
 
@@ -1123,9 +1131,9 @@ Chunk 3: Referências + Observações
 ```
 Cada bloco mantém um contexto completo, melhorando significativamente a qualidade dos embeddings.
 
-## 9.3 Embeddings e Payload do Qdrant
+## 9.3 Embeddings e Payload do Banco Vetorial (Qdrant)
 
-Após a divisão, cada chunk será convertido em um vetor numérico que representa seu significado semântico. O banco vetorial armazenará vetor, texto original, metadados e identificadores.
+Após a divisão, cada chunk será convertido em um vetor numérico que representa seu significado semântico. O banco vetorial (Qdrant) armazenará vetor, texto original, metadados e identificadores.
 
 **Estrutura sugerida para o Payload:**
 ```json
@@ -1191,7 +1199,8 @@ O modelo de linguagem recebe não apenas o texto encontrado, mas também: a perg
 | Componente | Responsabilidade | NÃO é responsável por |
 |------------|-----------------|----------------------|
 | **BookStack** | Autoria, organização, revisão, publicação, versionamento | Busca inteligente, RAG |
-| **Qdrant** | Armazenar vetores e metadados, busca por similaridade | Autoria, governança, workflow |
+| **n8n** | Orquestração do pipeline, acesso à API do BookStack, automação dos fluxos de indexação | Autoria, armazenamento de conteúdo, busca |
+| **Banco Vetorial (Qdrant)** | Armazenar vetores e metadados, busca por similaridade | Autoria, governança, workflow |
 | **LLM** | Compreender perguntas, interpretar contexto, sintetizar respostas | Criar conhecimento, decidir políticas, substituir a Base |
 
 Toda informação apresentada pelo LLM deverá ser baseada na Base Corporativa.
@@ -1202,7 +1211,7 @@ Toda informação apresentada pelo LLM deverá ser baseada na Base Corporativa.
 ```text
 Chamado → TOPdesk → Pesquisa automática → BookStack → Artigo encontrado?
 ├── Sim → Resolver incidente → Registrar reutilização → Indicadores KCS
-└── Não → Atendimento → Novo conhecimento → BookStack → Pipeline → Qdrant
+└── Não → Atendimento → Novo conhecimento → BookStack → n8n → Pipeline → Banco Vetorial (Qdrant)
 ```
 ### Integração com ITAM e CMDB
 
@@ -1210,7 +1219,7 @@ A arquitetura prevê integração com a Gestão de Ativos e Configuração, perm
 
 ## 9.8 Camadas da Arquitetura e Independência Tecnológica
 
-A arquitetura foi construída para ser independente de fornecedores. Todos os componentes — BookStack, Qdrant, modelos de linguagem (OpenAI, Gemini, Claude, Llama, DeepSeek), frameworks (LangChain, LlamaIndex, Haystack) — poderão ser substituídos sem necessidade de alterar a taxonomia, os artigos, os templates, a governança ou os processos KCS.
+A arquitetura foi construída para ser independente de fornecedores. Todos os componentes — BookStack, n8n, banco vetorial (Qdrant), modelos de linguagem (OpenAI, Gemini, Claude, Llama, DeepSeek), frameworks (LangChain, LlamaIndex, Haystack) — poderão ser substituídos sem necessidade de alterar a taxonomia, os artigos, os templates, a governança ou os processos KCS.
 
 Essa é uma das principais características de arquiteturas corporativas maduras: **o conhecimento é o ativo permanente da organização**, não as ferramentas tecnológicas.
 
@@ -1235,11 +1244,13 @@ PESSOAS
    Taxonomia      Templates      Metadados
         └──────────────┼──────────────┘
                        │
+            n8n (Orquestração)
+                       │
                  Pipeline RAG
                        │
       Extração → Chunking → Embeddings
                        │
-                    Qdrant
+            Banco Vetorial (Qdrant)
                        │
          Busca Híbrida + Re-ranking
                        │
@@ -1260,7 +1271,7 @@ Toda a arquitetura pode ser sintetizada em cinco ativos corporativos interdepend
 | **Conhecimento** | Artigos da Base |
 | **Estrutura** | BookStack e hierarquia organizacional |
 | **Semântica** | Taxonomia, metadados e ontologia |
-| **Inteligência** | Pipeline RAG, banco vetorial e LLM |
+| **Inteligência** | Pipeline RAG, n8n, banco vetorial (Qdrant) e LLM |
 | **Governança** | Metodologia KCS e Conselho de Arquitetura |
 
 ---
@@ -1311,7 +1322,7 @@ FASE 7: Agentes Inteligentes → FASE 8: Melhoria Contínua
 
 ### FASE 6 — Inteligência Artificial
 
-**Componentes:** BookStack → Pipeline → Embeddings → Qdrant → RAG → LLM.
+**Componentes:** BookStack → n8n → Pipeline → Embeddings → Banco Vetorial (Qdrant) → RAG → LLM.
 
 **Entregas:** Pipeline automatizado, vetorização, busca híbrida, re-ranking e chatbot corporativo.
 
@@ -1376,9 +1387,9 @@ Esse modelo pode ser utilizado para avaliar periodicamente a evolução da inici
 
 # Considerações Finais
 
-Este documento estabelece as bases para a transformação da gestão do conhecimento de TI da Embrapa. A arquitetura proposta vai além da implantação de uma plataforma tecnológica — ela define um modelo corporativo de produção, organização, recuperação e evolução contínua do conhecimento.
+Este documento estabelece as bases para a transformação da gestão do conhecimento de TI da Embrapa. A arquitetura proposta vai além da implantação de uma plataforma tecnológica — ela define um modelo corporativo de produção, organização, recuperação e evolução contínua do conhecimento de TI.
 
-Os doze princípios fundamentais orientam todas as decisões de arquitetura. A separação entre estrutura e classificação garante escalabilidade. A metodologia KCS transforma a operação diária em fonte permanente de conhecimento. A arquitetura RAG e os bancos vetoriais ampliam a capacidade de recuperação para além das limitações da busca textual tradicional.
+Os doze princípios fundamentais orientam todas as decisões de arquitetura. A separação entre estrutura e classificação garante escalabilidade. A metodologia KCS transforma a operação diária em fonte permanente de conhecimento de TI. A arquitetura RAG e os bancos vetoriais (Qdrant) ampliam a capacidade de recuperação para além das limitações da busca textual tradicional.
 
 O sucesso dessa iniciativa dependerá menos da tecnologia empregada e mais do compromisso institucional com a governança, a colaboração e a melhoria contínua. A Base de Conhecimento não é um projeto com data de término — é uma capacidade organizacional que deverá evoluir permanentemente, acompanhando as mudanças tecnológicas, os novos desafios operacionais e as oportunidades oferecidas pela Inteligência Artificial.
 
@@ -1517,7 +1528,7 @@ Para manter a simplicidade, alguns campos foram deliberadamente excluídos:
 | `indexação` | Todo artigo publicado é automaticamente indexado pelo pipeline |
 | `embedding` | Responsabilidade exclusiva do pipeline de IA |
 | `chunk` | Fragmentação ocorre automaticamente durante a indexação |
-| `vetor` | Armazenamento pertence ao Qdrant |
+| `vetor` | Armazenamento pertence ao banco vetorial (Qdrant) |
 | `modelo-ia` | Arquitetura independente do modelo utilizado |
 | `score` | Pontuações de similaridade pertencem ao mecanismo de recuperação |
 
@@ -1578,6 +1589,7 @@ Todos os valores deverão seguir as seguintes regras:
 | KCS | Knowledge-Centered Service |
 | LDAP | Lightweight Directory Access Protocol |
 | LLM | Large Language Model (Modelo de Linguagem de Grande Escala) |
+| n8n | Plataforma de Automação e Orquestração de Workflows |
 | MFA | Multi-Factor Authentication |
 | PITR | Point-In-Time Recovery |
 | RAG | Retrieval-Augmented Generation (Recuperação Aumentada por Geração) |
@@ -1594,6 +1606,7 @@ Todos os valores deverão seguir as seguintes regras:
 1. **KCS v6 — Knowledge-Centered Service.** Consortium for Service Innovation. Disponível em: https://www.serviceinnovation.org/kcs/
 2. **BookStack Documentation.** Disponível em: https://www.bookstackapp.com/docs/
 3. **Qdrant — Vector Database.** Documentação oficial. Disponível em: https://qdrant.tech/documentation/
-4. **Lewis, P. et al. (2020).** *Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks.* Advances in Neural Information Processing Systems (NeurIPS).
-5. **ITIL 4 — IT Infrastructure Library.** AXELOS/PeopleCert. Framework de gerenciamento de serviços de TI.
-6. **HDI — Knowledge Management Fundamentals.** Help Desk Institute. Práticas de gestão do conhecimento para Service Desk.
+4. **n8n — Workflow Automation.** Plataforma de orquestração de workflows. Disponível em: https://docs.n8n.io/
+5. **Lewis, P. et al. (2020).** *Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks.* Advances in Neural Information Processing Systems (NeurIPS).
+6. **ITIL 4 — IT Infrastructure Library.** AXELOS/PeopleCert. Framework de gerenciamento de serviços de TI.
+7. **HDI — Knowledge Management Fundamentals.** Help Desk Institute. Práticas de gestão do conhecimento para Service Desk.
