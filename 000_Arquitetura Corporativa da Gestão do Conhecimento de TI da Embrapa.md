@@ -2,7 +2,6 @@
 
 | Campo | Valor |
 |-------|-------|
-
 | **Versão** | 5.0 |
 | **Data** | Julho de 2026 |
 | **Classificação** | Interno |
@@ -10,13 +9,13 @@
 
 ### Histórico de Revisões
 
-| Versão | Data | Descrição |
-|--------|------|-----------|
-| 1.0 | 2026 | Versão inicial (compilação de sessões de trabalho) |
-| 2.0 | Julho 2026 | Primeira consolidação e remoção de duplicidades |
-| 3.0 | Julho 2026 | Reestruturação completa, eliminação de redundâncias, padronização editorial e inclusão de novos elementos |
-| 4.0 | Julho 2026 | Revisão geral e adaptação da base de conhecimento para a nova estrutura de 6 Estantes (Corporativo vs. Unidades) |
-| 5.0 | Julho 2026 | Inclusão do n8n como camada de orquestração, padronização "banco vetorial (Qdrant)", ajuste da Regra 80/20 e reforço do escopo exclusivo de TI |
+| Versão | Data | Autor | Descrição |
+|--------|------|-----------|-----------|
+| 1.0 | 2026 | André Luiz Bontempo | Versão inicial (compilação de sessões de trabalho) |
+| 2.0 | Julho 2026 | André Luiz Bontempo | Primeira consolidação e remoção de duplicidades |
+| 3.0 | Julho 2026 | André Luiz Bontempo | Reestruturação completa, eliminação de redundâncias, padronização editorial e inclusão de novos elementos |
+| 4.0 | Julho 2026 | André Luiz Bontempo | Revisão geral e adaptação da base de conhecimento para a nova estrutura de 6 Estantes (Corporativo vs. Unidades) |
+| 5.0 | Julho 2026 | André Luiz Bontempo | Inclusão do n8n como camada de orquestração, padronização "banco vetorial (Qdrant)", ajuste da Regra 80/20 e reforço do escopo exclusivo de TI |
 
 ---
 
