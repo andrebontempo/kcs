@@ -41,19 +41,21 @@
 
 ## Sumário Executivo
 
-A Embrapa enfrenta desafios comuns a organizações de grande porte com estrutura descentralizada: conhecimento técnico disperso em múltiplos sistemas, duplicidade de informações, dependência de especialistas e dificuldade em localizar soluções já existentes.
+A Embrapa enfrenta desafios comuns a organizações de grande porte com estrutura descentralizada: conhecimento técnico de TI disperso em múltiplos sistemas, duplicidade de informações, dependência de especialistas e dificuldade em localizar soluções já existentes.
 
-Este documento estabelece a **Arquitetura Corporativa da Base de Conhecimento** — um modelo integrado que transforma a gestão do conhecimento de TI da Embrapa por meio de cinco pilares:
+Este documento estabelece a **Arquitetura Corporativa da Gestão do Conhecimento de TI da Embrapa**, propondo um modelo unificado para organizar o capital intelectual técnico da empresa. A estratégia utiliza a plataforma BookStack e a metodologia KCS (Knowledge-Centered Service) para transformar o conhecimento disperso em ativos reutilizáveis, organizados em estantes lógicas que separam o escopo corporativo das particularidades das unidades locais. O projeto integra tecnologias avançadas — como o n8n para orquestração de pipelines, bancos vetoriais (Qdrant) para indexação semântica e Inteligência Artificial Generativa para recuperação e síntese de respostas —, criando uma estrutura otimizada tanto para a leitura humana quanto para o processamento automatizado por assistentes inteligentes. Fundamentada na Regra 80/20, a arquitetura busca reduzir a duplicidade de informações e garantir a continuidade dos serviços de TI por meio de uma governança editorial rigorosa. O resultado final é um ecossistema descentralizado, mas padronizado, que posiciona o conhecimento de TI como um patrimônio estratégico da organização.
+
+A arquitetura está sustentada por **cinco pilares**:
 
 1. **Organização estruturada** no BookStack, com hierarquia de Estantes, Livros, Capítulos e Páginas orientada a domínios de conhecimento.
-2. **Metodologia KCS** (Knowledge-Centered Service) adaptada à realidade da Embrapa, promovendo a captura contínua de conhecimento durante a operação diária.
+2. **Metodologia KCS** adaptada à realidade da Embrapa, promovendo a captura contínua de conhecimento durante a operação diária.
 3. **Taxonomia e metadados padronizados**, separando a estrutura organizacional dos marcadores de qualificação para reduzir redundâncias e facilitar a governança.
 4. **Arquitetura de Recuperação Aumentada por Geração (RAG)**, integrando pipelines de indexação orquestrados pelo n8n (plataforma de automação de workflows), bancos vetoriais (Qdrant) e modelos de linguagem para busca semântica e assistentes inteligentes.
 5. **Governança editorial e descentralização**, estruturada em **6 Estantes independentes** que dividem o escopo Corporativo (Embrapa) e Local (Unidades) para cada público-alvo (Suporte ao Usuário, Operação de TI e Administração de TI), operacionalizando a Regra 80/20 de proporção de conhecimento.
 
 A implementação está organizada em **oito fases progressivas**, desde a infraestrutura básica até agentes inteligentes e melhoria contínua, com indicadores de maturidade para acompanhamento.
 
-O resultado esperado é uma Base de Conhecimento que funcione simultaneamente como repositório para pessoas, fonte de dados para mecanismos de busca, acervo semântico para IA e plataforma de melhoria contínua — independente de fornecedores tecnológicos específicos.
+O resultado esperado é uma Base de Conhecimento de TI que funcione simultaneamente como repositório para pessoas, fonte de dados para mecanismos de busca, acervo semântico para IA e plataforma de melhoria contínua — independente de fornecedores tecnológicos específicos.
 
 ---
 
