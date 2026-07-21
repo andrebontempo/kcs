@@ -74,7 +74,7 @@ Apesar desse grande volume de conhecimento, muitas organizações ainda enfrenta
 * dificuldade em localizar rapidamente a informação correta;
 * baixa reutilização das soluções já existentes.
 
-No contexto da Embrapa, esse desafio torna-se ainda mais relevante devido à existência de uma estrutura organizacional distribuída, composta por uma unidade central e quarenta e quatro Unidades Descentralizadas, cada uma com características operacionais próprias.
+No contexto da Embrapa, esse desafio torna-se ainda mais relevante devido à existência de uma estrutura organizacional distribuída, composta por quarenta e quatro Unidades — incluindo a Sede, que atua como unidade administrativa —, cada uma com características operacionais próprias.
 
 A Base de Conhecimento Corporativa proposta neste documento foi concebida para enfrentar esse cenário por meio de uma arquitetura orientada ao conhecimento, construída sobre o BookStack e fundamentada nos princípios do Knowledge-Centered Service (KCS), complementados por tecnologias de Recuperação Aumentada por Geração (RAG), bancos vetoriais (Qdrant) e Inteligência Artificial Generativa.
 
@@ -199,7 +199,7 @@ A Inteligência Artificial e os chatbots não substituem a Base de Conhecimento,
 
 ### Princípio 12 — Contextualização e Regra 80/20
 
-A arquitetura do conhecimento de TI deve contemplar a realidade descentralizada da Embrapa, priorizando o conhecimento corporativo comum (80%) e tratando particularidades regionais ou de unidades locais (20%) de forma estruturada. Isso é alcançado dividindo a Base de Conhecimento em estantes lógicas segregadas por público (Suporte ao Usuário, Operação de TI, Administração de TI) e por escopo (Embrapa vs. Unidades), totalizando **6 Estantes Corporativas** que evitam a duplicação ou fragmentação das informações comuns.
+A arquitetura do conhecimento de TI deve contemplar a realidade descentralizada da Embrapa — composta por 44 Unidades, incluindo a Sede —, priorizando o conhecimento corporativo comum (80%) e tratando particularidades regionais ou de cada Unidade (20%) de forma estruturada. Isso é alcançado dividindo a Base de Conhecimento em estantes lógicas segregadas por público (Suporte ao Usuário, Operação de TI, Administração de TI) e por escopo (Corporativo vs. Unidades), totalizando **6 Estantes Corporativas** que evitam a duplicação ou fragmentação das informações comuns.
 
 ## 2.2 Manifesto da Gestão do Conhecimento
 
@@ -265,11 +265,11 @@ As estantes representam o mais alto nível de organização. Sua função é sep
 
 | Estante | Público-Alvo | Escopo / Finalidade | Gestão do Conhecimento |
 | :--- | :--- | :--- | :--- |
-| **📚 Embrapa - Suporte ao Usuário** | Todos os colaboradores | Autoatendimento de ferramentas e sistemas corporativos comuns | Central (Sede / Gestão de Processos) |
-| **📚 Unidades - Suporte ao Usuário** | Usuários de unidades específicas | Particularidades locais de autoatendimento das 44 unidades | Descentralizada (TI da respectiva Unidade) |
-| **📚 Embrapa - Operação de TI** | Analistas de TI (Sede/Unidades) | Documentação técnica corporativa, infraestrutura e runbooks globais | Co-criada (Nível corporativo) |
+| **📚 Embrapa - Suporte ao Usuário** | Todos os colaboradores | Autoatendimento de ferramentas e sistemas corporativos comuns | Corporativa (Gestão de Processos / SIT) |
+| **📚 Unidades - Suporte ao Usuário** | Usuários de unidades específicas | Particularidades locais de autoatendimento das 44 Unidades (incluindo a Sede) | Descentralizada (TI da respectiva Unidade) |
+| **📚 Embrapa - Operação de TI** | Analistas de TI de todas as Unidades | Documentação técnica corporativa, infraestrutura e runbooks globais | Co-criada (Nível corporativo) |
 | **📚 Unidades - Operação de TI** | Analistas de TI local | Particularidades de infraestrutura, redes e servidores locais da Unidade | Descentralizada (TI da respectiva Unidade) |
-| **📚 Embrapa - Administração de TI** | Gestores de TI e Segurança | Governança, normativas, planejamento estratégico e contratos globais | Sede (Secretaria de TI) |
+| **📚 Embrapa - Administração de TI** | Gestores de TI e Segurança | Governança, normativas, planejamento estratégico e contratos globais | Corporativa (Secretaria de TI) |
 | **📚 Unidades - Administração de TI** | Chefes de TI local e Diretores | Inventários locais, contratos de TI locais e planos de contingência | Descentralizada (Chefia de TI da Unidade) |
 
 Essa organização permite aplicar políticas distintas de acesso, ciclo de vida do conhecimento e indexação para IA (RAG).
@@ -280,7 +280,7 @@ Essa organização permite aplicar políticas distintas de acesso, ciclo de vida
 **Exemplos de Livros:** Google Workspace, VPN Corporativa, Portal de Serviços (TOPdesk), Wi-Fi Corporativo, MFA.
 
 ### 📚 Estante: Unidades - Suporte ao Usuário
-**Finalidade:** Armazenar guias de autoatendimento contendo particularidades geográficas ou operacionais específicas das 44 unidades.
+**Finalidade:** Armazenar guias de autoatendimento contendo particularidades geográficas ou operacionais específicas de cada uma das 44 Unidades (incluindo a Sede).
 **Características:** Organizada com um livro para cada unidade (ex: `📖 Embrapa Cerrados - Suporte ao Usuário`), contendo ramais locais, particularidades de impressão local, regras locais de acesso físico ou agendamento de recursos locais.
 **Exemplos de Livros:** Embrapa Gado de Corte, Embrapa Cerrados, Embrapa Trigo.
 
@@ -736,9 +736,9 @@ Recomenda-se a criação de um **Conselho de Arquitetura do Conhecimento**, cujo
 
 Esse papel é semelhante ao de um Conselho de Arquitetura Corporativa em projetos de TI: em vez de decidir sobre cada documento, ele zela pela consistência do modelo como um todo.
 
-## 6.5 Descentralização: Sede e Unidades
+## 6.5 Descentralização: Corporativo e Unidades
 
-A Embrapa possui uma estrutura organizacional composta por uma Sede e diversas Unidades Descentralizadas distribuídas geograficamente. Embora grande parte dos serviços de TI seja padronizada, cada Unidade possui particularidades relacionadas à sua infraestrutura, processos, sistemas locais e forma de operação.
+A Embrapa possui uma estrutura organizacional composta por 44 Unidades distribuídas geograficamente, incluindo a Sede, que atua como unidade administrativa e é, portanto, uma das 44 Unidades. Embora grande parte dos serviços de TI seja padronizada em nível corporativo, cada Unidade — inclusive a Sede — possui particularidades relacionadas à sua infraestrutura, processos, sistemas locais e forma de operação.
 
 ### Princípios da Descentralização
 
@@ -757,7 +757,7 @@ A Embrapa possui uma estrutura organizacional composta por uma Sede e diversas U
 | Tipo de conhecimento | Percentual esperado |
 |----------------------|:-------------------:|
 | Conhecimento corporativo de TI (Embrapa) | 80% |
-| Conhecimento específico de TI das Unidades Descentralizadas | 20% |
+| Conhecimento específico de TI das Unidades (incluindo a Sede) | 20% |
 
 Caso uma Unidade possua uma proporção muito maior de conteúdo local, recomenda-se avaliar se parte desse conhecimento não poderia ser promovida à Base Corporativa.
 
@@ -767,7 +767,7 @@ Antes de criar um artigo específico para uma Unidade, recomenda-se responder: (
 
 ### Organização das Estantes de Unidades
 
-Em vez de centralizar todo o conteúdo das 44 unidades em uma única estante mista, o conhecimento descentralizado é distribuído de acordo com o público-alvo pelas três estantes dedicadas de Unidades:
+Em vez de centralizar todo o conteúdo das 44 Unidades (incluindo a Sede) em uma única estante mista, o conhecimento específico é distribuído de acordo com o público-alvo pelas três estantes dedicadas de Unidades:
 
 ```text
 📚 Unidades - Suporte ao Usuário
@@ -846,8 +846,8 @@ A Embrapa adota a **Arquitetura de Camadas de Conhecimento** como o modelo ofici
 ### Detalhamento das Camadas
 
 1. **Camada 1 — Conhecimento Corporativo:** Representa a fonte padrão de verdade para toda a instituição. Armazena conceitos, sistemas e procedimentos que possuem aplicação global nas estantes centrais: `Embrapa - Suporte ao Usuário`, `Embrapa - Operação de TI` e `Embrapa - Administração de TI`.
-2. **Camada 2 — Conhecimento Regional/Coletivo:** Agrupa o conhecimento comum a um conjunto específico de Unidades Descentralizadas que compartilham o mesmo bioma, arranjo de pesquisa ou região geográfica. É implementado no BookStack por livros temáticos compartilhados ou qualificados via metadados específicos.
-3. **Camada 3 — Conhecimento Local da Unidade:** Contém exclusivamente as particularidades técnicas, operacionais ou administrativas da Unidade Descentralizada. É armazenado na respectiva estante de Unidade (`Unidades - Suporte ao Usuário`, `Unidades - Operação de TI` ou `Unidades - Administração de TI`), dentro do livro da UD respectiva.
+2. **Camada 2 — Conhecimento Regional/Coletivo:** Agrupa o conhecimento comum a um conjunto específico de Unidades que compartilham o mesmo bioma, arranjo de pesquisa ou região geográfica. É implementado no BookStack por livros temáticos compartilhados ou qualificados via metadados específicos.
+3. **Camada 3 — Conhecimento Local da Unidade:** Contém exclusivamente as particularidades técnicas, operacionais ou administrativas de cada Unidade (incluindo a Sede). É armazenado na respectiva estante de Unidade (`Unidades - Suporte ao Usuário`, `Unidades - Operação de TI` ou `Unidades - Administração de TI`), dentro do livro da respectiva Unidade.
 
 ### Funcionamento e Integração com RAG
 
@@ -1596,7 +1596,7 @@ Todos os valores deverão seguir as seguintes regras:
 | RAG | Retrieval-Augmented Generation (Recuperação Aumentada por Geração) |
 | SLA | Service Level Agreement |
 | SSO | Single Sign-On |
-| UD | Unidade Descentralizada |
+| UD | Unidade da Embrapa (inclui a Sede e as demais Unidades) |
 | VPN | Virtual Private Network |
 | WAL | Write-Ahead Logging |
 
